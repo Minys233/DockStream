@@ -66,6 +66,7 @@ class RDkitLigandPreparator(LigandPreparator, BaseModel):
     def _smiles_to_molecules(self, ligands: List[Ligand]) -> List[Ligand]:
         for lig in ligands:
             mol = to_mol(lig.get_smile())
+            mol = AllChem.AddHs(mol)
             lig.set_molecule(mol)
             lig.set_mol_type(_LP.TYPE_RDKIT)
         return ligands
